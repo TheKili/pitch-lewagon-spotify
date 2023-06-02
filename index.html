@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+        <section data-markdown>
+          <textarea data-template>
+            # Spotify recommendation system
+
+            ---
+
+            We all know it: starting Spotify radio listening to one of our favourite jazz songs and, a couple of songs later, ending up with Helene Fischer "Atemlos durch die Nacht". Spotify what the ... ?
+
+            => Solution: creating a customisable recommendation algorithm.
+
+            <small> (Actually, this never happened to me and the Spotify radio is quite remarkable.) </small>
+
+            ---
+
+            # What is a recommendation system?
+
+            ---
+
+            - recommendation systems combine information along two dimensions:
+              - content (e.g. danceability, loudness, tempo of a song  )
+              - collaboration (e.g. songs share the same playlist)
+            - recommendation = closest distance between _current_ song and _i_ next songs as mean on both dimensions
+            - (implies some distance measuring between your current song and all other songs e.g. ```cosine_similarity, polynomial_kernel, ...```)
+
+
+            ---
+
+            # How can a recommendation system become more customisable?
+
+            ---
+
+            *let the user choose what songs to play next!*
+
+            1) suggest songs according to the fit over both dimensions
+            2) present  songs in a visually appealing way with visually marked preselected recommendations
+            3) let the user interact and customise the user's path through the music
+            ---
+
+            ![Scatterplot to simply represent each song along the two dimensions and using hexabins for gropuing](https://www.mssqltips.com/tipimages2/5546_visualize-patterns-high-volume-data-hexbin-scatterplot-power-bi.009.png)
+
+            If this was our product: x-Axis represents collaboration, y-Axis content, Hexbins aggregate small groups of songs and can be explored, add to playlist path or being removed
+
+            ---
+
+            # Basic Product
+            ---
+
+            - let the user input a Spotify song
+            - return a visual representation of recommendations based on similarity with a preselected path
+            - let the user modify this path and return the modified playlist
+
+            ---
+
+            # Basic Way to Get There
+
+            ---
+
+            ## data
+
+            - data for the content dimension: Spotify data set with song analysis well known from previous challenges
+            - data for the collaboration dimension: Spotify one million playlist data set -> created by users
+
+            ---
+
+            ## similarity measures
+
+            - content dimension: select one of a thousands algorithms to calculate the similarity between songs using ```loudnes```etc. as input features
+            - collaboration dimension: count co-occurence of songs in playlists (similar to counting words in sentences )
+
+            ---
+
+            # Any ideas to make it more fancy?
+
+            ---
+
+            - attribute different weights to the input features - controlled by the user
+            - filter results by user criteria e.g. "same genre" or "same band"
+            - cluster recommendations and provide different "listening islands"
+            - think of dissimilarities between songs as spanning a huge network with 1) nodes as songs and 2) links between nodes as their dissimilarity
+              - find the shortest path e.g. "How do I get from Queen's Bohemian Rhapsody to Outcast's Hey Ya!"
+              - or everything else with paths and network
+
+
+
+
+
+          </textarea>
+        </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
